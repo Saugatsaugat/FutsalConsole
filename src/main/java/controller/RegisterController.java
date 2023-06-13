@@ -5,6 +5,7 @@ import entities.UserData;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class RegisterController {
@@ -24,17 +25,21 @@ public class RegisterController {
             switch (ch) {
                 case 1:
                     registerInformation.put("type", "user");
-                    status = new UserData().addUser(registerInformation);
-                    if (status) {
-                        System.out.println("User added Successfully");
+                    String email = registerInformation.get("email");
+                    if (checkIfEmailExist(email)) {
+                        System.out.println("User Already registered");
                     } else {
-                        System.out.println("User registration failed");
+                        status = new UserData().addUser(registerInformation);
+                        if (status) {
+                            System.out.println("User added Successfully");
+                        } else {
+                            System.out.println("User registration failed");
+                        }
                     }
 
                     break;
                 case 2:
                     registerInformation.put("type", "futsalowner");
-                    //user = new RegisterController().setRegistrationInformation(registerInformation);
                     status = new UserData().addUser(registerInformation);
                     if (status) {
                         System.out.println("FutsalOwner added Successfully");
@@ -122,6 +127,17 @@ public class RegisterController {
         user.setMobile(new BigInteger(registerInformation.get("mobile")));
         user.setPassword(registerInformation.get("password"));
         return user;
+    }
+
+    public boolean checkIfEmailExist(String email) {
+        List<User> userList = new UserData().getUserList();
+        for (User user : userList) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+
+        }
+        return false;
     }
 
 }
