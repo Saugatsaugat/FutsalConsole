@@ -1,6 +1,9 @@
 package com.mycompany.futsalconsole;
 
+import controller.AdminController;
+import controller.FutsalOwnerController;
 import controller.LoginController;
+import controller.NormalUserController;
 import controller.RegisterController;
 import entities.User;
 import entities.UserData;
@@ -37,13 +40,14 @@ public class FutsalConsole {
                         HashMap<String,String> user = new UserData().getUserByEmail(username);
                         String type = user.get("type");
                         if("admin".equals(type)){
+                            new AdminController().adminPage(user);
                             
                         }
                         else if("futsalowner".equals(type)){
-                            
+                              new FutsalOwnerController().futsalOwnerPage(user);
                         }
                         else if("user".equals(type)){
-                            
+                             new NormalUserController().NormalUserPage(user);
                         }
                     } else {
                         System.out.println("Invalid Credentials");

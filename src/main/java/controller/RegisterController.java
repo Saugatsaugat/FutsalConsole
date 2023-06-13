@@ -60,7 +60,7 @@ public class RegisterController {
                         } else {
                             status = new UserData().addUser(registerInformation);
                             if (status) {
-                                System.out.println("User added Successfully");
+                                System.out.println("Futsal Owner Successfully");
                             } else {
                                 System.out.println("User registration failed");
                             }
@@ -81,7 +81,7 @@ public class RegisterController {
                         } else {
                             status = new UserData().addUser(registerInformation);
                             if (status) {
-                                System.out.println("User added Successfully");
+                                System.out.println("Admin added Successfully");
                             } else {
                                 System.out.println("User registration failed");
                             }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserData {
+public class UserData<T> {
 
     static List<User> userList = new ArrayList<User>();
 
@@ -55,11 +55,6 @@ public class UserData {
     }
 
     ///////////////////////////////////////
-    public void printUserList() {
-        for (User list : userList) {
-            System.out.println("Id:" + list.getId());
-            System.out.println("Email:" + list.getEmail());
-        }
-    }
+   
 
 }
