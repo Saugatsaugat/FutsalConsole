@@ -19,7 +19,7 @@ public class FutsalConsole {
         System.out.println("!!! WELCOME TO  FUTSAL !!!\n\n");
         System.out.println("*******************************\n");
         while(flag){
-        System.out.println("What do you want?\n1.Register\n2.Login\n3.Exit\nSelect: ");
+        System.out.println("\nWhat do you want?\n1.Register\n2.Login\n3.Exit\nSelect: ");
         try {
             int ch = sc.nextInt();
             switch (ch) {
@@ -34,7 +34,17 @@ public class FutsalConsole {
                     username = username.toLowerCase();
                     boolean status = new LoginController().verifylogin(username, password);
                     if (status) {
-                        System.out.println("User exists");
+                        HashMap<String,String> user = new UserData().getUserByEmail(username);
+                        String type = user.get("type");
+                        if("admin".equals(type)){
+                            
+                        }
+                        else if("futsalowner".equals(type)){
+                            
+                        }
+                        else if("user".equals(type)){
+                            
+                        }
                     } else {
                         System.out.println("Invalid Credentials");
                     }

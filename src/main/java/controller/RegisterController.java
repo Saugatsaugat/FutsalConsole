@@ -16,6 +16,7 @@ public class RegisterController {
         HashMap<String, String> registerInformation = new HashMap<String, String>();
         User user = new User();
         boolean status = false;
+        String email = null;
         System.out.println("Register as a\n1.Normal User\n2.Futsal Owner\n3.Admin\nSelect: ");
         try {
             int ch = sc.nextInt();
@@ -25,35 +26,66 @@ public class RegisterController {
             switch (ch) {
                 case 1:
                     registerInformation.put("type", "user");
-                    String email = registerInformation.get("email");
+                    email = registerInformation.get("email");
                     if (checkIfEmailExist(email)) {
                         System.out.println("User Already registered");
                     } else {
-                        status = new UserData().addUser(registerInformation);
-                        if (status) {
-                            System.out.println("User added Successfully");
+                        List<String> messages = new ValidationController().validateUserRegistration(registerInformation);
+                        if ((messages.size()) > 0) {
+                            for (String msg : messages) {
+                                System.out.println(msg);
+                            }
                         } else {
-                            System.out.println("User registration failed");
+                            status = new UserData().addUser(registerInformation);
+                            if (status) {
+                                System.out.println("User added Successfully");
+                            } else {
+                                System.out.println("User registration failed");
+                            }
                         }
                     }
 
                     break;
                 case 2:
                     registerInformation.put("type", "futsalowner");
-                    status = new UserData().addUser(registerInformation);
-                    if (status) {
-                        System.out.println("FutsalOwner added Successfully");
+                    email = registerInformation.get("email");
+                    if (checkIfEmailExist(email)) {
+                        System.out.println("User Already registered");
                     } else {
-                        System.out.println("Registration failed");
+                        List<String> messages = new ValidationController().validateUserRegistration(registerInformation);
+                        if ((messages.size()) > 0) {
+                            for (String msg : messages) {
+                                System.out.println(msg);
+                            }
+                        } else {
+                            status = new UserData().addUser(registerInformation);
+                            if (status) {
+                                System.out.println("User added Successfully");
+                            } else {
+                                System.out.println("User registration failed");
+                            }
+                        }
                     }
                     break;
                 case 3:
                     registerInformation.put("type", "admin");
-                    status = new UserData().addUser(registerInformation);
-                    if (status) {
-                        System.out.println("Admin added Successfully");
+                    email = registerInformation.get("email");
+                    if (checkIfEmailExist(email)) {
+                        System.out.println("User Already registered");
                     } else {
-                        System.out.println("Registration failed");
+                        List<String> messages = new ValidationController().validateUserRegistration(registerInformation);
+                        if ((messages.size()) > 0) {
+                            for (String msg : messages) {
+                                System.out.println(msg);
+                            }
+                        } else {
+                            status = new UserData().addUser(registerInformation);
+                            if (status) {
+                                System.out.println("User added Successfully");
+                            } else {
+                                System.out.println("User registration failed");
+                            }
+                        }
                     }
                     break;
 
@@ -96,7 +128,6 @@ public class RegisterController {
 
             System.out.println("Enter password: ");
             String password = sc.next();
-            password = new LoginController().getPasswordHash(password);
 
             registerInformation.put("id", id.toString());
             registerInformation.put("email", email);
