@@ -1,10 +1,10 @@
 
 package controller;
 
-import java.util.HashMap;
+import entities.User;
 
 public class FutsalOwnerController {
-    public void futsalOwnerPage(HashMap<String,String> user){
+    public void futsalOwnerPage(User user){
         
     }
 }

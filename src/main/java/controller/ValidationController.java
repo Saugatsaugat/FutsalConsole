@@ -1,5 +1,7 @@
 package controller;
 
+import entities.User;
+import entities.UserData;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ValidationController {
+public class ValidationController<T> {
 
     public String checkEmail(String email) {
         String msg = null;
@@ -74,6 +76,26 @@ public class ValidationController {
         return errorMessage;
         
     }
+    public boolean checkIfEmailExist(String email) {
+        List<User> userList = new UserData().getUserList();
+        for (User user : userList) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+    public boolean checkIfIdExist(BigDecimal id) {
+        List<User> userList = new UserData().getUserList();
+        for (User user : userList) {
+            if (user.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     
         
 }

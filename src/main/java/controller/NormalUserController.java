@@ -1,10 +1,10 @@
 
 package controller;
 
-import java.util.HashMap;
+import entities.User;
 
 public class NormalUserController {
-        public void NormalUserPage(HashMap<String,String> user){
+        public void NormalUserPage(User user){
         
     }
 }

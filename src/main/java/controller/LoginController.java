@@ -19,6 +19,7 @@ public class LoginController {
             stringHash = new String(messageDigest.digest());
             return stringHash;
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
 
         }
         return stringHash;
@@ -26,7 +27,7 @@ public class LoginController {
     }
 
     public List<String> getLoginInformation() {
-        List<String> loginInformation = new ArrayList<String>();
+        List<String> loginInformation = new ArrayList<>();
         try {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter Username: ");
@@ -44,8 +45,7 @@ public class LoginController {
 
     /////////////////////
     public boolean verifylogin(String username, String password) {
-        List<User> userList = new ArrayList<User>();
-        userList = new UserData().getUserList();
+        List<User> userList = new UserData().getUserList();
         for (User user : userList) {
             String pass = getPasswordHash(password);
             if ((user.getEmail().equals(username)) && user.getPassword().equals(pass)) {

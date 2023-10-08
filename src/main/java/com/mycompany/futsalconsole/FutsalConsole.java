@@ -9,11 +9,10 @@ import entities.User;
 import entities.UserData;
 import static java.lang.System.exit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class FutsalConsole {
+public class FutsalConsole{
 
     public static void main(String[] args) {
         boolean flag = true;
@@ -30,15 +29,16 @@ public class FutsalConsole {
                     new RegisterController().makeRegistration();
                     break;
                 case 2:
-                    List<String> loginInformation = new ArrayList<String>();
+                    List<String> loginInformation = new ArrayList<>();
                     loginInformation = new LoginController().getLoginInformation();
                     String username = loginInformation.get(0);
                     String password = loginInformation.get(1);
                     username = username.toLowerCase();
                     boolean status = new LoginController().verifylogin(username, password);
+                    System.out.println("Status: "+status);
                     if (status) {
-                        HashMap<String,String> user = new UserData().getUserByEmail(username);
-                        String type = user.get("type");
+                       User user = new UserData().getDataByEmail(username);
+                        String type = user.getType();
                         if("admin".equals(type)){
                             new AdminController().adminPage(user);
                             
@@ -62,11 +62,6 @@ public class FutsalConsole {
         catch(Exception e){
             System.out.println(e.getMessage());
         }
-        }
-
-        List<User> userlist = new UserData().getUserList();
-        for (User list : userlist) {
-            System.out.println(list);
         }
     }
 }

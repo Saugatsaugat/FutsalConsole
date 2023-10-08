@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package controller;
 
 import entities.User;
@@ -8,15 +12,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *
+ * @author saugat
+ */
 public class RegisterController {
-
     Scanner sc = new Scanner(System.in);
 
     public void makeRegistration() {
         HashMap<String, String> registerInformation = new HashMap<String, String>();
         User user = new User();
         boolean status = false;
+        boolean emailIdFlag = false;
         String email = null;
+        BigDecimal id = null;
         System.out.println("Register as a\n1.Normal User\n2.Futsal Owner\n3.Admin\nSelect: ");
         try {
             int ch = sc.nextInt();
@@ -26,21 +35,26 @@ public class RegisterController {
             switch (ch) {
                 case 1:
                     registerInformation.put("type", "user");
+
                     email = registerInformation.get("email");
-                    if (checkIfEmailExist(email)) {
-                        System.out.println("User Already registered");
+                    if (new ValidationController().checkIfIdExist(id)) {
+
                     } else {
-                        List<String> messages = new ValidationController().validateUserRegistration(registerInformation);
-                        if ((messages.size()) > 0) {
-                            for (String msg : messages) {
-                                System.out.println(msg);
-                            }
+                        if (new ValidationController().checkIfEmailExist(email)) {
+                            System.out.println("User Already registered");
                         } else {
-                            status = new UserData().addUser(registerInformation);
-                            if (status) {
-                                System.out.println("User added Successfully");
+                            List<String> messages = new ValidationController().validateUserRegistration(registerInformation);
+                            if ((messages.size()) > 0) {
+                                for (String msg : messages) {
+                                    System.out.println(msg);
+                                }
                             } else {
-                                System.out.println("User registration failed");
+                                status = new UserData().addUser(registerInformation);
+                                if (status) {
+                                    System.out.println("User added Successfully");
+                                } else {
+                                    System.out.println("User registration failed");
+                                }
                             }
                         }
                     }
@@ -49,7 +63,7 @@ public class RegisterController {
                 case 2:
                     registerInformation.put("type", "futsalowner");
                     email = registerInformation.get("email");
-                    if (checkIfEmailExist(email)) {
+                    if (new ValidationController().checkIfEmailExist(email)) {
                         System.out.println("User Already registered");
                     } else {
                         List<String> messages = new ValidationController().validateUserRegistration(registerInformation);
@@ -70,7 +84,7 @@ public class RegisterController {
                 case 3:
                     registerInformation.put("type", "admin");
                     email = registerInformation.get("email");
-                    if (checkIfEmailExist(email)) {
+                    if (new ValidationController().checkIfEmailExist(email)) {
                         System.out.println("User Already registered");
                     } else {
                         List<String> messages = new ValidationController().validateUserRegistration(registerInformation);
@@ -159,16 +173,4 @@ public class RegisterController {
         user.setPassword(registerInformation.get("password"));
         return user;
     }
-
-    public boolean checkIfEmailExist(String email) {
-        List<User> userList = new UserData().getUserList();
-        for (User user : userList) {
-            if (user.getEmail().equals(email)) {
-                return true;
-            }
-
-        }
-        return false;
-    }
-
 }
